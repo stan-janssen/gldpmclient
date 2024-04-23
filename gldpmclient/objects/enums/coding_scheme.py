@@ -1,0 +1,54 @@
+# pylint: disable=line-too-long
+from enum import Enum
+
+
+class CodingSchemeType(Enum):
+    EIC                                           = "A01"  #: The coding scheme is the Energy Identification Coding Scheme (EIC), maintained by ENTSO-E.
+    CGM                                           = "A02"  #: The coding scheme used for Common Grid Model Exchange Standard (CGMES).
+    GS1                                           = "A10"  #: The coding scheme for the preceding attribute is the Global Location Number (GLN 13) or Global Service Relation Number (GSRN 18), maintained by GS1.
+    ANDORRA_NATIONAL_CODING_SCHEME                = "NAD"  #: The National coding scheme of the country in question.
+    ALBANIA_NATIONAL_CODING_SCHEME                = "NAL"  #: The National coding scheme of the country in question.
+    ARMENIA_NATIONAL_CODING_SCHEME                = "NAM"  #: The National coding scheme of the country in question.
+    AUSTRIA_NATIONAL_CODING_SCHEME                = "NAT"  #: The National coding scheme of the country in question.
+    AZERBAIJAN_NATIONAL_CODING_SCHEME             = "NAZ"  #: The National coding scheme of the country in question.
+    BOSNIA_AND_HERZEGOVINA_NATIONAL_CODING_SCHEME = "NBA"  #: The National coding scheme of the country in question.
+    BELGIUM_NATIONAL_CODING_SCHEME                = "NBE"  #: The National coding scheme of the country in question.
+    BULGARIA_NATIONAL_CODING_SCHEME               = "NBG"  #: The National coding scheme of the country in question.
+    SWITZERLAND_NATIONAL_CODING_SCHEME            = "NCH"  #: The National coding scheme of the country in question.
+    SERBIA_AND_MONTENEGRO_NATIONAL_CODING_SCHEME  = "NCS"  #: The National coding scheme of the country in question.
+    CZECH_REPUBLIC_NATIONAL_CODING_SCHEME         = "NCZ"  #: The National coding scheme of the country in question.
+    GERMANY_NATIONAL_CODING_SCHEME                = "NDE"  #: The National coding scheme of the country in question.
+    DENMARK_NATIONAL_CODING_SCHEME                = "NDK"  #: The National coding scheme of the country in question.
+    ESTONIA_NATIONAL_CODING_SCHEME                = "NEE"  #: The National coding scheme of the country in question.
+    SPAIN_NATIONAL_CODING_SCHEME                  = "NES"  #: The National coding scheme of the country in question.
+    FINLAND_NATIONAL_CODING_SCHEME                = "NFI"  #: The National coding scheme of the country in question.
+    FRANCE_NATIONAL_CODING_SCHEME                 = "NFR"  #: The National coding scheme of the country in question.
+    UNITED_KINGDOM_NATIONAL_CODING_SCHEME         = "NGB"  #: The National coding scheme of the country in question.
+    GEORGIA_NATIONAL_CODING_SCHEME                = "NGE"  #: The National coding scheme of the country in question.
+    GIBRALTAR_NATIONAL_CODING_SCHEME              = "NGI"  #: The National coding scheme of the country in question.
+    GREECE_NATIONAL_CODING_SCHEME                 = "NGR"  #: The National coding scheme of the country in question.
+    CROATIA_NATIONAL_CODING_SCHEME                = "NHR"  #: The National coding scheme of the country in question.
+    HUNGARY_NATIONAL_CODING_SCHEME                = "NHU"  #: The National coding scheme of the country in question.
+    IRELAND_NATIONAL_CODING_SCHEME                = "NIE"  #: The National coding scheme of the country in question.
+    ITALY_NATIONAL_CODING_SCHEME                  = "NIT"  #: The National coding scheme of the country in question.
+    KYRGYZSTAN_NATIONAL_CODING_SCHEME             = "NKG"  #: The National coding scheme of the country in question.
+    KAZAKHSTAN_NATIONAL_CODING_SCHEME             = "NKZ"  #: The National coding scheme of the country in question.
+    LIECHTENSTEIN_NATIONAL_CODING_SCHEME          = "NLI"  #: The National coding scheme of the country in question.
+    LITHUANIA_NATIONAL_CODING_SCHEME              = "NLT"  #: The National coding scheme of the country in question.
+    LUXEMBOURG_NATIONAL_CODING_SCHEME             = "NLU"  #: The National coding scheme of the country in question.
+    LATVIA_NATIONAL_CODING_SCHEME                 = "NLV"  #: The National coding scheme of the country in question.
+    MOROCCO_NATIONAL_CODING_SCHEME                = "NMA"  #: The National coding scheme of the country in question.
+    MOLDAVIA_NATIONAL_CODING_SCHEME               = "NMD"  #: The National coding scheme of the country in question.
+    MACEDONIA_NATIONAL_CODING_SCHEME              = "NMK"  #: The National coding scheme of the country in question.
+    NETHERLANDS_NATIONAL_CODING_SCHEME            = "NNL"  #: The National coding scheme of the country in question.
+    NORDIC_REGIONAL_CODING_SCHEME                 = "NNN"  #: The coding scheme of the Nordic region which covers Denmark, Finland, Norway and Sweden.
+    NORWAY_NATIONAL_CODING_SCHEME                 = "NNO"  #: The National coding scheme of the country in question.
+    POLAND_NATIONAL_CODING_SCHEME                 = "NPL"  #: The National coding scheme of the country in question.
+    PORTUGAL_NATIONAL_CODING_SCHEME               = "NPT"  #: The National coding scheme of the country in question.
+    ROMANIA_NATIONAL_CODING_SCHEME                = "NRO"  #: The National coding scheme of the country in question.
+    RUSSIAN_FEDERATION_NATIONAL_CODING_SCHEME     = "NRU"  #: The National coding scheme of the country in question.
+    SWEDEN_NATIONAL_CODING_SCHEME                 = "NSE"  #: The National coding scheme of the country in question.
+    SLOVENIA_NATIONAL_CODING_SCHEME               = "NSI"  #: The National coding scheme of the country in question.
+    SLOVAKIA_NATIONAL_CODING_SCHEME               = "NSK"  #: The National coding scheme of the country in question.
+    TURKEY_NATIONAL_CODING_SCHEME                 = "NTR"  #: The National coding scheme of the country in question.
+    UKRAINE_NATIONAL_CODING_SCHEME                = "NUA"  #: The National coding scheme of the country in question.

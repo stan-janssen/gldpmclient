@@ -1,0 +1,49 @@
+# pylint: disable=line-too-long
+from enum import Enum
+
+
+class RoleType(Enum):
+    TRADE_RESPONSIBLE_PARTY                = "A01"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    CONSUMPTION_RESPONSIBLE_PARTY          = "A02"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    COMBINED_POWER_EXCHANGE_NOT_TO_BE_USED = "A03"  #: This role is no longer in the ENTSO-E Harmonised Role Model Document.
+    SYSTEM_OPERATOR                        = "A04"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    IMBALANCE_SETTLEMENT_RESPONSIBLE       = "A05"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    PRODUCTION_RESPONSIBLE_PARTY           = "A06"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    TRANSMISSION_CAPACITY_ALLOCATOR        = "A07"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    BALANCE_RESPONSIBLE_PARTY              = "A08"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    METERED_DATA_AGGREGATOR                = "A09"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    BILLING_AGENT                          = "A10"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    MARKET_OPERATOR                        = "A11"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    BALANCE_SUPPLIER                       = "A12"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    CONSUMER                               = "A13"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    CONTROL_AREA_OPERATOR                  = "A14"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    CONTROL_BLOCK_OPERATOR                 = "A15"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    COORDINATION_CENTER_OPERATOR           = "A16"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    GRID_ACCESS_PROVIDER                   = "A17"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    GRID_OPERATOR                          = "A18"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    METER_ADMINISTRATOR                    = "A19"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    PARTY_CONNECTED_TO_GRID                = "A20"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    PRODUCER                               = "A21"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    PROFILE_MAINTENANCE_PARTY              = "A22"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    METER_OPERATOR                         = "A23"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    METERED_DATA_COLLECTOR                 = "A24"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    METERED_DATA_RESPONSIBLE               = "A25"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    METERING_POINT_ADMINISTRATOR           = "A26"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    RESOURCE_PROVIDER                      = "A27"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    SCHEDULING_COORDINATOR                 = "A28"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    CAPACITY_TRADER                        = "A29"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    INTERCONNECTION_TRADE_RESPONSIBLE      = "A30"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    NOMINATION_VALIDATOR                   = "A31"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
+    MARKET_INFORMATION_AGGREGATOR          = "A32"  #: A party that collects information from different sources and assembles it to provide a summary of the market.
+    INFORMATION_RECEIVER                   = "A33"  #: A party, not necessarily a market participant, which receives information about the market.
+    RESERVE_ALLOCATOR                      = "A34"  #: A party that informs the market of reserve requirements, receives tenders against the requirements and in compliance with the prequalification criteria, determines what tenders meet requirements and assigns tenders.
+    MOL_RESPONSIBLE                        = "A35"  #: A party that Informs the market of reserve requirements, receives tenders against the requirements and in compliance with the prequalification criteria, determines what tenders meet requirements and assigns tenders.
+    CAPACITY_COORDINATOR                   = "A36"  #: A party, acting on behalf of the SOs involved, responsible for establishing a coordinated Offered Capacity and/or NTC and/or ATC between several Market Balance Areas.
+    RECONCILIATION_ACCOUNTABLE             = "A37"  #: A party that is financially accountable for the reconciled volume of energy products for a profiled local metering point.
+    RECONCILIATION_RESPONSIBLE             = "A38"  #: A party that is responsible for reconciling, within a metering grid area, the volumes used in the imbalance settlement process for profiled metering points and the actual metered quantities.
+    DATA_PROVIDER                          = "A39"  #: A party that is responsible for providing information to a central authority.
+    LOCAL_ISSUING_OFFICE_LIO               = "A40"  #: A party that is responsible for operating a Local Issuing Office (LIO).
+    CENTRAL_ISSUING_OFFICE_CIO             = "A41"  #: A party that is responsible for operating a Central Issuing Office (CIO).
+    EIC_PARTICIPANT                        = "A42"  #: A party that participates in the EIC environment.
+    WEATHER_ANALYSER                       = "A43"  #: A party that analyses the current and forecast weather situation and establishes a prognosis of its impact on the renewable energy environment as well as the overall load.
+    REGIONAL_SECURITY_COORDINATOR_RSC      = "A44"  #: The RCS as defined in the System Operation guideline.

@@ -1,0 +1,55 @@
+# pylint: disable=line-too-long
+from enum import Enum
+
+
+class ProcessType(Enum):
+    DAY_AHEAD                              = "A01"  #: The information provided concerns a day ahead process.
+    INTRA_DAY_INCREMENTAL                  = "A02"  #: The information provided concerns an intra day schedule.
+    INTER_AREA_TRANSIT                     = "A03"  #: The information provided concerns an inter area transit schedule. The rules governing this process are market dependent
+    SYSTEM_OPERATION_CLOSURE               = "A04"  #: The information provided concerns the closure of a given period of both scheduled and regulation information.
+    METERED_DATA_AGGREGATION               = "A05"  #: The information provided concerns the aggregation process of metered information.
+    IMBALANCE_SETTLEMENT                   = "A06"  #: The information provided concerns the imbalance settlement for a given period for a balance responsible party or parties.
+    CAPACITY_ALLOCATION                    = "A07"  #: The information provided concerns the capacity allocation process.
+    CENTRAL_RECONCILIATION                 = "A08"  #: The process carried out to finalise the imbalance settlement based on actual metered values against provisional values from profiled metering points.
+    RELEASED_CAPACITY_ALLOCATION           = "A09"  #: The process concerns the notification of capacity rights that are being released.
+    PROPOSED_CAPACITY_ALLOCATION           = "A10"  #: The process concerns the proposed capacity to be allocated for a given border.
+    AGREED_CAPACITY_ALLOCATION             = "A11"  #: The process concerns the capacity that has been agreed for allocation for a border.
+    LONG_TERM                              = "A12"  #: The process concerns scheduling all schedules except daily and intraday contracts.
+    POST_SCHEDULING_ADJUSTMENT             = "A13"  #: The process concerns the adjustments made to previous schedules after the period of execution.
+    FORECAST                               = "A14"  #: The data contained in the document are to be handled in short, medium, long term forecasting process.
+    CAPACITY_DETERMINATION                 = "A15"  #: The process of determining the capacity for use.
+    REALISED                               = "A16"  #: The process for the treatment of realised data as opposed to forecast data.
+    SCHEDULE_DAY                           = "A17"  #: The process concerns the day ahead, intraday and eventually ex-post scheduling in a single document. The schedule will be transferred within the total position including historic information.
+    INTRADAY_TOTAL                         = "A18"  #: This process concerns an intraday schedule which contains the accumulated day ahead and intraday current position.
+    INTRADAY_ACCUMULATED                   = "A19"  #: This process concerns a single intraday schedule process where only intraday evolutions occur through version changes.
+    SOMA_PROCESS                           = "A20"  #: System Operator meter alignment process.
+    SOVM_PROCESS                           = "A21"  #: System Operator validated measurement process.
+    RGCE_ACCOUNTING_PROCESS                = "A22"  #: The document provides ENTSO-E Regional Group Continental Europe accounting process information.
+    CCSR_RGCE_SETTLEMENT                   = "A23"  #: The process concerns the control center settlement report for the whole of the ENTSO-E Regional Group Continental Europe.
+    CBSR_SETTLEMENT                        = "A24"  #: The process concerns the control block settlement report.
+    CASR_SETTLEMENT                        = "A25"  #: The process concerns the control area settlement report.
+    OUTAGE_INFORMATION                     = "A26"  #: The process concerns TSO publication of outages on its power system.
+    RESERVE_RESOURCE_PROCESS               = "A27"  #: The process being described is for general reserve resources.
+    PRIMARY_RESERVE_PROCESS                = "A28"  #: The process being described is for primary reserves.
+    SECONDARY_RESERVE_PROCESS              = "A29"  #: The process being described is for secondary reserves.
+    TERTIARY_RESERVE_PROCESS               = "A30"  #: The process being described is for tertiary reserves.
+    WEEK_AHEAD                             = "A31"  #: The process being described is for the week ahead.
+    MONTH_AHEAD                            = "A32"  #: The process being described is for the month ahead.
+    YEAR_AHEAD                             = "A33"  #: The process being described is for the year ahead.
+    CONTRACTED                             = "A34"  #: The process being described is for contracted information.
+    NETWORK_INFORMATION                    = "A35"  #: The process being described is for network information.
+    CREATION                               = "A36"  #: The process being described is for the creation of information.
+    MODIFICATION                           = "A37"  #: The process being described is for the modification of information.
+    DEACTIVATION_PROCESS                   = "A38"  #: The process being described is for deactivation of information.
+    SYNCHRONISATION_PROCESS                = "A39"  #: The process being described is for the synchronisation of information.
+    INTRADAY_PROCESS                       = "A40"  #: The process being described is for intraday process.
+    REDISPATCH_PROCESS                     = "A41"  #: The process being described is for redispatch activation.
+    ACTIVATION_HISTORY_PROCESS             = "A42"  #: The process being described is for the provision of an activation history.
+    FLOW_BASED_DOMAIN_CONSTRAINT_DAY_AHEAD = "A43"  #: The information provided concerns the flow-based process in day ahead.
+    FLOW_BASED_DOMAIN_CONSTRAINT_INTRADAY  = "A44"  #: The information provided concerns the flow-based process in intraday.
+    TWO_DAYS_AHEAD                         = "A45"  #: Two days ahead.
+    REPLACEMENT_RESERVE                    = "A46"  #: A process being described is for replacement reserves (RR) to restore or support the required level of frequency restoration reserves.
+    MANUAL_FREQUENCY_RESTORATION_RESERVE   = "A47"  #: A process being described is for manual frequency restoration reserves (mFRR).
+    DAY_AHEAD_CAPACITY_DETERMINATION       = "A48"  #: The process run at the day- ahead timeframe to determine the capacity for use.
+    INTRADAY_CAPACITY_DETERMINATION        = "A49"  #: The process run at the intraday timeframe to determine the capacity for use.
+    LONG_TERM_CAPACITY_DETERMINATION       = "A50"  #: The process run at the long term timeframe to determine the capacity for use.

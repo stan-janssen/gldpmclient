@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=65.5.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gldpmclient"
+version = "1.0.0"
+description = "Generation Load Data Providison Methodology client for Python"
+dependencies = [
+    "requests",
+    "xsdata",
+    "tzdata; os_name == 'nt'"
+]
+requires-python = ">= 3.10"
+license = {file = "LICENSE"}
+
+[tool.setuptools.packages.find]
+include = ["gldpmclient"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov"
+]
+
+[tool.pytest.ini_options]
+addopts = "-v --cov --cov-report html"
+
+[tool.coverage.run]
+include = [
+    "gldpmclient/**/*.py",
+]
+
+[tool.coverage.report]
+skip_empty = true
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.pylint."MESSAGES CONTROL"]
+max-line-length = 120
+disable = "missing-class-docstring, missing-module-docstring, too-few-public-methods"
+
+[tool.isort]
+profile = "black"
