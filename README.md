@@ -17,7 +17,7 @@ Usage
 
 ```python
 from uuid import uuid4
-from gldpmclient import GLDPMClient, objects
+from gldpmclient import GLDPMClient, objects, exceptions
 
 
 # Create the GLDPM Client object
@@ -98,7 +98,17 @@ body = objects.GlMarketDocumentBody(
 # message and parses the response, and returns the
 # correlation_id for the message.
 
-correlation_id = client.send_generation_load_message(body=body)
+try:
+    correlation_id: str = client.send_generation_load_message(body=body)
+except exceptions.GLDPMException as err:
+    # Detailed fault informatien from the SOAP 
+    # message is availabe in the exception:
+    fault: objects.Fault = err.fault
+    print(fault.faultcode)
+    print(fault.faultstring)
+    print(fault.faultactor)
+    print(fault.details)
+
 ```
 
 The response from the receiver will only be the correlation_id (str) for the message. You can use this ID to correlate future messages.
