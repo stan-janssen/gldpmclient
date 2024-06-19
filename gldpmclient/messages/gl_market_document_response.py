@@ -1,5 +1,8 @@
 # pylint: disable=duplicate-code
 from dataclasses import dataclass, field
+from typing import Optional
+
+from ..elements import Fault
 
 
 @dataclass(kw_only=True)
@@ -25,7 +28,8 @@ class GlMarketDocumentResponse():
     @dataclass(kw_only=True)
     class Body:
 
-        response: "GlMarketDocumentResponse.Body.GlMarketDocumentResponseBody" = field(
+        result: Optional["GlMarketDocumentResponse.Body.Result"] = field(
+            default=None,
             metadata={
                 "type": "Element",
                 "name": "GL_MarketDocumentResponse",
@@ -33,8 +37,16 @@ class GlMarketDocumentResponse():
             }
         )
 
+        fault: Optional[Fault] = field(
+            default=None,
+            metadata={
+                "type": "Element",
+                "name": "Fault",
+            }
+        )
+
         @dataclass(kw_only=True)
-        class GlMarketDocumentResponseBody:
+        class Result:
             correlation_id: str = field(
                 metadata={
                     "name": "correlationId",

@@ -77,6 +77,7 @@ def test_perform_request():
 
 
     server = HTTPServer(('localhost', 8080), GLDPMRequestHandler)
+    server.gldpm_client = client
     t = Thread(target=server.serve_forever)
     t.start()
 
@@ -91,10 +92,19 @@ class GLDPMRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length)
-        response = b'<?xml version="1.0" encoding="UTF-8"?>\n<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\n  <soapenv:Header/>\n  <soapenv:Body>\n    <ns0:GL_MarketDocumentResponse xmlns:ns0="http://sys.svc.tennet.nl/GenerationLoad/v1">   \n<ns1:correlationId xmlns:ns1="http://sys.svc.tennet.nl/MMCHub/common/v1">9436b1e8-a21c-4ecc-ad76-80e99027d427</ns1:correlationId>\n  </ns0:GL_MarketDocumentResponse>\n  </soapenv:Body>\n</soapenv:Envelope>\n'
-        response_length = len(response)
+
+        response = objects.GlMarketDocumentResponse(
+            header="",
+            body=objects.GlMarketDocumentResponse.Body(
+                result=objects.GlMarketDocumentResponse.Body.Result(
+                    correlation_id="9436b1e8-a21c-4ecc-ad76-80e99027d427"
+                )
+            ),
+        )
+
+        serialized = self.server.gldpm_client._serialize_message(response)
+        response_length = len(serialized)
 
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(response)
-
+        self.wfile.write(serialized)

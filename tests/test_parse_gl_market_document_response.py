@@ -15,8 +15,34 @@ def test_parse_gl_market_document_response():
     response = objects.GlMarketDocumentResponse(
         header="",
         body=objects.GlMarketDocumentResponse.Body(
-            response=objects.GlMarketDocumentResponse.Body.GlMarketDocumentResponseBody(
+            result=objects.GlMarketDocumentResponse.Body.Result(
                 correlation_id=str(uuid4())
+            )
+        ),
+    )
+
+    serialized = client._serialize_message(response)
+    print(serialized)
+    parsed = client._parse_message(serialized)
+
+    assert parsed == response
+
+
+def test_parse_gl_market_document_response_with_fault():
+    client = GLDPMClient(
+        sender_id="123",
+        receiver_id="123",
+        carrier_id="123",
+        host="none",
+        indent_xml=True,
+    )
+
+    response = objects.GlMarketDocumentResponse(
+        header="",
+        body=objects.GlMarketDocumentResponse.Body(
+            fault=objects.Fault(
+                faultcode="123",
+                faultstring="Something went wrong",
             )
         ),
     )

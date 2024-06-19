@@ -8,6 +8,7 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
+from .exceptions import GLDPMException
 from .objects import (
     GlMarketDocument,
     GlMarketDocumentBody,
@@ -80,7 +81,10 @@ class GLDPMClient:
             header=GlMarketDocument.Header(message_addressing),
         )
 
-        return self._post_message(message, self.host).body.response.correlation_id
+        response = self._post_message(message, self.host)
+        if response.body.fault:
+            raise GLDPMException(fault=response.body.fault)
+        return response.body.result.correlation_id
 
     def _post_message(self, message, url):
         """
