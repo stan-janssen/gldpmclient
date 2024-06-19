@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class UnitOfMeasureType(Enum):
+class UnitOfMeasureType(StrEnum):
     OKTA_UNIT                      = "A59"  #: A unit of measurement of the cloudiness expressed in OKTA or OCTA, i.e. A unit of count defining the number of eighth-parts as a measure of the celestial dome cloud coverage.
     GIGAWATT                       = "A90"  #: GW unit as per UN/CEFACT recommendation 20.
     HECTOPASCAL                    = "A97"  #: A unit of measurement of the pressure expressed in hectopascal.

@@ -116,7 +116,7 @@ def test_generation_load_message():
         <ns1:end>2024-01-31T23:00Z</ns1:end>
       </ns1:time_Period.timeInterval>
       <ns1:TimeSeries>
-        <ns1:mRID>123456789012345678BusinessType.PRODUCTION</ns1:mRID>
+        <ns1:mRID>123456789012345678A01</ns1:mRID>
         <ns1:businessType>A01</ns1:businessType>
         <ns1:objectAggregation>A06</ns1:objectAggregation>
         <ns1:registeredResource.mRID>123456789012345678</ns1:registeredResource.mRID>

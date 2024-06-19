@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class MessageType(Enum):
+class MessageType(StrEnum):
     BALANCE_RESPONSIBLE_SCHEDULE                                        = "A01"  #: A schedule which has been prepared by a balance responsible party providing planned schedule information.
     ALLOCATED_CAPACITY_SCHEDULE                                         = "A02"  #: A schedule which has been prepared by a capacity allocator providing allocated capacity.
     BALANCE_AREA_SCHEDULE                                               = "A03"  #: A schedule that provides the planned schedule information for a balance area.

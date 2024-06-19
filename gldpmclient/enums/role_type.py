@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class RoleType(Enum):
+class RoleType(StrEnum):
     TRADE_RESPONSIBLE_PARTY                = "A01"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
     CONSUMPTION_RESPONSIBLE_PARTY          = "A02"  #: Refer to role model definitions in the ENTSO-E Harmonised Role Model Document.
     COMBINED_POWER_EXCHANGE_NOT_TO_BE_USED = "A03"  #: This role is no longer in the ENTSO-E Harmonised Role Model Document.

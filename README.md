@@ -27,7 +27,13 @@ client = GLDPMClient(
     receiver_id=receiver_id,
     carrier_id=carrier_id,
     host="https://gldpm-receiver-url.com/SendGenerationLoadMessage",
-    indent_xml=True
+    sender_market_role_type=RoleType.RESOURCE_PROVIDER,
+    receiver_market_role_type=RoleType.SYSTEM_OPERATOR,
+    indent_xml=True,
+    # Optionally add additional keyword arguments that are
+    # passed to requests.post here:
+    auth=('username', 'password'),
+    timeout=60
 )
 
 # Create a message by packing a list of Points into a

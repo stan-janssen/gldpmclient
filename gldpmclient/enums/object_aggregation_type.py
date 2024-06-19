@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class ObjectAggregationType(Enum):
+class ObjectAggregationType(StrEnum):
     AREA                     = "A01"  #: The object being described concerns an area.
     METERING_POINT           = "A02"  #: The object being described concerns a metering point.
     PARTY                    = "A03"  #: The object being described concerns a party.

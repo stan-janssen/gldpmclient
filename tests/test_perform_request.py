@@ -51,7 +51,10 @@ def test_perform_request():
             m_rid=f"{transformer_ean}{str(objects.BusinessType.PRODUCTION)}",
             business_type=objects.BusinessType.PRODUCTION,
             object_aggregation=objects.ObjectAggregationType.RESOURCE_OBJECT,
-            registered_resource_m_rid=transformer_ean,
+            registered_resource_m_rid=objects.ResourceIdString(
+                value=transformer_ean,
+                coding_scheme=objects.CodingSchemeType.GS1
+            ),
             quantity_measure_unit_name=objects.UnitOfMeasureType.MEGAWATT,
             curve_type=objects.CurveType.SEQUENTIAL_FIXED_SIZE_BLOCK,
             periods=periods
@@ -88,7 +91,7 @@ class GLDPMRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length)
-        response = b'<?xml version="1.0" encoding="UTF-8"?>\n<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\n  <soapenv:Body>\n    <ns1:correlationId xmlns:ns1="http://sys.svc.tennet.nl/MMCHub/common/v1">9436b1e8-a21c-4ecc-ad76-80e99027d427</ns1:correlationId>\n  </soapenv:Body>\n</soapenv:Envelope>\n'
+        response = b'<?xml version="1.0" encoding="UTF-8"?>\n<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\n  <soapenv:Header/>\n  <soapenv:Body>\n    <ns0:GL_MarketDocumentResponse xmlns:ns0="http://sys.svc.tennet.nl/GenerationLoad/v1">   \n<ns1:correlationId xmlns:ns1="http://sys.svc.tennet.nl/MMCHub/common/v1">9436b1e8-a21c-4ecc-ad76-80e99027d427</ns1:correlationId>\n  </ns0:GL_MarketDocumentResponse>\n  </soapenv:Body>\n</soapenv:Envelope>\n'
         response_length = len(response)
 
         self.send_response(200)

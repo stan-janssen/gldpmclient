@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gldpmclient"
-version = "1.0.0"
+version = "1.1.0"
 description = "Generation Load Data Providison Methodology client for Python"
 dependencies = [
     "requests",
@@ -14,8 +14,15 @@ dependencies = [
 requires-python = ">= 3.10"
 license = {file = "LICENSE"}
 
-[tool.setuptools.packages.find]
-include = ["gldpmclient"]
+[tool.setuptools]
+packages = [
+    "gldpmclient",
+    "gldpmclient.elements",
+    "gldpmclient.enums",
+    "gldpmclient.messages",
+    "gldpmclient.metadata"
+]
+
 
 [project.optional-dependencies]
 dev = [
@@ -24,7 +31,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "-v --cov --cov-report html"
+addopts = "-v --cov --cov-report html --cov-report=term"
 
 [tool.coverage.run]
 include = [

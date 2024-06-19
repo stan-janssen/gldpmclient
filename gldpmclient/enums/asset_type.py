@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class AssetType(Enum):
+class AssetType(StrEnum):
     TIELINE                         = "A01"  #: A high voltage line used for cross border energy interconnections.
     LINE                            = "A02"  #: A specific electric line within a country.
     RESOURCE_OBJECT                 = "A03"  #: A resource that can either produce or consume energy.

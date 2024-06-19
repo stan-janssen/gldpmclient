@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class ProcessType(Enum):
+class ProcessType(StrEnum):
     DAY_AHEAD                              = "A01"  #: The information provided concerns a day ahead process.
     INTRA_DAY_INCREMENTAL                  = "A02"  #: The information provided concerns an intra day schedule.
     INTER_AREA_TRANSIT                     = "A03"  #: The information provided concerns an inter area transit schedule. The rules governing this process are market dependent

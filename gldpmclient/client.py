@@ -1,6 +1,8 @@
 from uuid import uuid4
+import warnings
 
 import requests
+from xsdata.exceptions import ParserError
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.formats.dataclass.context import XmlContext
@@ -30,13 +32,13 @@ class GLDPMClient:
         sender_market_role_type=RoleType.RESOURCE_PROVIDER,
         receiver_market_role_type=RoleType.SYSTEM_OPERATOR,
         indent_xml=False,
-        http_headers=None,
+        **request_options
     ):
         """
         Create a GLDPM Client, used to communicate from one sender
         to one receiver, indicating the carrier of the message.
         """
-        self.host = host
+        self.host = host.removesuffix("/")
         self.sender_id = sender_id
         self.receiver_id = receiver_id
         self.carrier_id = carrier_id
@@ -48,7 +50,9 @@ class GLDPMClient:
         self.parser_context = XmlContext()
         self.parser = XmlParser(context=self.parser_context)
 
-        self.http_headers = http_headers or {}
+        self.request_options = request_options
+        self.request_timeout = self.request_options.pop("timeout", 30)
+        self.http_headers = self.request_options.pop("headers", {"Content-Type": "application/xml"})
 
     def send_generation_load_message(
         self,
@@ -76,7 +80,7 @@ class GLDPMClient:
             header=GlMarketDocument.Header(message_addressing),
         )
 
-        return self._post_message(message, self.host).body.correlation_id
+        return self._post_message(message, self.host).body.response.correlation_id
 
     def _post_message(self, message, url):
         """
@@ -86,8 +90,9 @@ class GLDPMClient:
         response = requests.post(
             url,
             data=self._serialize_message(message),
-            headers=self.http_headers | {"Content-Type": "application/xml"},
-            timeout=30,
+            headers=self.http_headers,
+            timeout=self.request_timeout,
+            **self.request_options
         )
 
         return self._parse_message(response.content)

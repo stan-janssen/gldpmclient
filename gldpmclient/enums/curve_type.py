@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class CurveType(Enum):
+class CurveType(StrEnum):
     SEQUENTIAL_FIXED_SIZE_BLOCK = "A01"
     POINT                       = "A02"
     VARIABLE_SIZED_BLOCK        = "A03"

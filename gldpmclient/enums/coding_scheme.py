@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class CodingSchemeType(Enum):
+class CodingSchemeType(StrEnum):
     EIC                                           = "A01"  #: The coding scheme is the Energy Identification Coding Scheme (EIC), maintained by ENTSO-E.
     CGM                                           = "A02"  #: The coding scheme used for Common Grid Model Exchange Standard (CGMES).
     GS1                                           = "A10"  #: The coding scheme for the preceding attribute is the Global Location Number (GLN 13) or Global Service Relation Number (GSRN 18), maintained by GS1.

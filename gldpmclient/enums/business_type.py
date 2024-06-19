@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long
-from enum import Enum
+from enum import StrEnum
 
 
-class BusinessType(Enum):
+class BusinessType(StrEnum):
     PRODUCTION                                                         = "A01"  #: The nature of the business being described is production details.
     INTERNAL_TRADE                                                     = "A02"  #: The nature of the business being described is internal trade details.
     EXTERNAL_TRADE_EXPLICIT_CAPACITY                                   = "A03"  #: The nature of the business being described is external trade details between two areas with limited capacity requiring a capacity agreement identification.
