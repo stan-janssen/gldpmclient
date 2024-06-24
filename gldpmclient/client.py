@@ -1,5 +1,4 @@
 from uuid import uuid4
-import warnings
 
 import requests
 from xsdata.exceptions import ParserError
@@ -8,7 +7,7 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
-from .exceptions import GLDPMException
+from .exceptions import GLDPMException, HTTPException, ParsingException
 from .objects import (
     GlMarketDocument,
     GlMarketDocumentBody,
@@ -82,8 +81,7 @@ class GLDPMClient:
         )
 
         response = self._post_message(message, self.host)
-        if response.body.fault:
-            raise GLDPMException(fault=response.body.fault)
+        self._raise_on_gldpm_fault(response)
         return response.body.result.correlation_id
 
     def _post_message(self, message, url):
@@ -99,10 +97,34 @@ class GLDPMClient:
             **self.request_options
         )
 
+        if response.status_code != 200:
+            try:
+                decoded_response = response.content.decode("utf-8")
+            except Exception:
+                decoded_response = response.content
+            raise HTTPException(
+                f"Got HTTP status {response.status_code} when performing request to {url}. "
+                f"Response: {decoded_response}"
+            )
+
         return self._parse_message(response.content)
 
     def _serialize_message(self, message):
         return self.serializer.render(message).encode("utf-8")
 
-    def _parse_message(self, xml_bytes):
-        return self.parser.from_bytes(xml_bytes, GlMarketDocumentResponse)
+    def _parse_message(self, xml_bytes, message_type=GlMarketDocumentResponse):
+        try:
+            return self.parser.from_bytes(xml_bytes, message_type)
+        except ParserError as err:
+            try:
+                decoded_content = xml_bytes.decode("utf-8")
+            except Exception:
+                decoded_content = xml_bytes
+            raise ParsingException(
+                f"Could not parse the following message: {decoded_content}. "
+                f"Error: {err}"
+            ) from err
+
+    def _raise_on_gldpm_fault(self, response):
+        if response.body.fault:
+            raise GLDPMException(fault=response.body.fault)

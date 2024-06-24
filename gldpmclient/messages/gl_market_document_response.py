@@ -11,11 +11,12 @@ class GlMarketDocumentResponse():
         name = "Envelope"
         namespace = "http://schemas.xmlsoap.org/soap/envelope/"
 
-    header: str = field(
+    header: Optional[str] = field(
+        default="",
         metadata = {
             "name": "Header",
             "type": "Element",
-        }
+        },
     )
 
     body: "GlMarketDocumentResponse.Body" = field(

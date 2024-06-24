@@ -1,7 +1,5 @@
-from decimal import Decimal
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from uuid import uuid4
 
 from gldpmclient import GLDPMClient, objects
 
@@ -10,81 +8,12 @@ local_timezone = ZoneInfo("Europe/Amsterdam")
 
 def test_generation_load_message():
 
-    sender_id = "1" * 13
-    receiver_id = "2" * 13
-    carrier_id = "3" * 13
-    transformer_ean = "123456789012345678"
-    message_id = "e8f5f0ed-5e09-41ef-8cc5-c1989934f0be"
-    technical_message_id = "3609cee5-1e5e-45ca-a238-2735e472a9b2"
-
     client = GLDPMClient(
         sender_id=sender_id,
         receiver_id=receiver_id,
         carrier_id=carrier_id,
         host="none",
         indent_xml=True
-    )
-
-    points = [
-        objects.Point(
-            position=i+1,
-            quantity=1.23
-        )
-        for i in range(96)
-    ]
-
-    periods = [
-        objects.SeriesPeriod(
-            time_interval=objects.EsmpDateTimeInterval(
-                start=datetime(2024,1,1,0,0,0,tzinfo=local_timezone),
-                end=datetime(2024,2,1,0,0,0,tzinfo=local_timezone)
-            ),
-            resolution="PT15M",
-            points=points
-        )
-    ]
-
-    time_series = [
-        objects.TimeSeries(
-            m_rid=f"{transformer_ean}{str(objects.BusinessType.PRODUCTION)}",
-            business_type=objects.BusinessType.PRODUCTION,
-            object_aggregation=objects.ObjectAggregationType.RESOURCE_OBJECT,
-            registered_resource_m_rid=transformer_ean,
-            quantity_measure_unit_name=objects.UnitOfMeasureType.MEGAWATT,
-            curve_type=objects.CurveType.SEQUENTIAL_FIXED_SIZE_BLOCK,
-            periods=periods
-        )
-    ]
-
-    body = objects.GlMarketDocumentBody(
-        m_rid=message_id,
-        revision_number=1,
-        type_value=objects.MessageType.RESOURCE_PROVIDER_SCHEDULE_FOR_PRODUCTION_CONSUMPTION,
-        process_type=objects.ProcessType.FORECAST,
-        sender_market_participant_m_rid=objects.PartyIdString(sender_id, coding_scheme=objects.CodingSchemeType.GS1),
-        sender_market_participant_market_role_type=objects.RoleType.RESOURCE_PROVIDER,
-        receiver_market_participant_m_rid=objects.PartyIdString(receiver_id, coding_scheme=objects.CodingSchemeType.GS1),
-        receiver_market_participant_market_role_type=objects.RoleType.SYSTEM_OPERATOR,
-        created_date_time=datetime(2024,1,1,0,0,0, tzinfo=local_timezone),
-        time_period_time_interval=periods[0].time_interval,
-        time_series=time_series
-    )
-
-    message_addressing = objects.MessageAddressing(
-        technical_message_id = technical_message_id,
-        sender_id = sender_id,
-        receiver_id = receiver_id,
-        carrier_id = carrier_id,
-        content_type = "GenerationLoadForecast"
-    )
-
-    message = objects.GlMarketDocument(
-        header=objects.GlMarketDocument.Header(
-            message_addressing=message_addressing
-        ),
-        body=objects.GlMarketDocument.Body(
-            gl_market_document=body
-        )
     )
 
     serialized_message = client._serialize_message(message)
@@ -520,3 +449,79 @@ def test_generation_load_message():
 """
 
     assert serialized_message == expected_message
+
+
+
+
+# ------------------------------------------------------------ #
+#                  A generic testing message                   #
+# ------------------------------------------------------------ #
+
+sender_id = "1" * 13
+receiver_id = "2" * 13
+carrier_id = "3" * 13
+transformer_ean = "123456789012345678"
+message_id = "e8f5f0ed-5e09-41ef-8cc5-c1989934f0be"
+technical_message_id = "3609cee5-1e5e-45ca-a238-2735e472a9b2"
+
+points = [
+    objects.Point(
+        position=i+1,
+        quantity=1.23
+    )
+    for i in range(96)
+]
+
+periods = [
+    objects.SeriesPeriod(
+        time_interval=objects.EsmpDateTimeInterval(
+            start=datetime(2024,1,1,0,0,0,tzinfo=local_timezone),
+            end=datetime(2024,2,1,0,0,0,tzinfo=local_timezone)
+        ),
+        resolution="PT15M",
+        points=points
+    )
+]
+
+time_series = [
+    objects.TimeSeries(
+        m_rid=f"{transformer_ean}{str(objects.BusinessType.PRODUCTION)}",
+        business_type=objects.BusinessType.PRODUCTION,
+        object_aggregation=objects.ObjectAggregationType.RESOURCE_OBJECT,
+        registered_resource_m_rid=transformer_ean,
+        quantity_measure_unit_name=objects.UnitOfMeasureType.MEGAWATT,
+        curve_type=objects.CurveType.SEQUENTIAL_FIXED_SIZE_BLOCK,
+        periods=periods
+    )
+]
+
+body = objects.GlMarketDocumentBody(
+    m_rid=message_id,
+    revision_number=1,
+    type_value=objects.MessageType.RESOURCE_PROVIDER_SCHEDULE_FOR_PRODUCTION_CONSUMPTION,
+    process_type=objects.ProcessType.FORECAST,
+    sender_market_participant_m_rid=objects.PartyIdString(sender_id, coding_scheme=objects.CodingSchemeType.GS1),
+    sender_market_participant_market_role_type=objects.RoleType.RESOURCE_PROVIDER,
+    receiver_market_participant_m_rid=objects.PartyIdString(receiver_id, coding_scheme=objects.CodingSchemeType.GS1),
+    receiver_market_participant_market_role_type=objects.RoleType.SYSTEM_OPERATOR,
+    created_date_time=datetime(2024,1,1,0,0,0, tzinfo=local_timezone),
+    time_period_time_interval=periods[0].time_interval,
+    time_series=time_series
+)
+
+message_addressing = objects.MessageAddressing(
+    technical_message_id = technical_message_id,
+    sender_id = sender_id,
+    receiver_id = receiver_id,
+    carrier_id = carrier_id,
+    content_type = "GenerationLoadForecast"
+)
+
+message = objects.GlMarketDocument(
+    header=objects.GlMarketDocument.Header(
+        message_addressing=message_addressing
+    ),
+    body=objects.GlMarketDocument.Body(
+        gl_market_document=body
+    )
+)
