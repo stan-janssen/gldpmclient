@@ -1,11 +1,12 @@
+import traceback
 from uuid import uuid4
 
 import requests
 from xsdata.exceptions import ParserError
-from xsdata.formats.dataclass.serializers import XmlSerializer
-from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
+from xsdata.formats.dataclass.serializers import XmlSerializer
+from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 from .exceptions import GLDPMException, HTTPException, ParsingException
 from .objects import (
@@ -15,6 +16,8 @@ from .objects import (
     MessageAddressing,
     RoleType,
 )
+from .storage import MessageDirection, StorageProvider
+
 
 # pylint: disable=too-many-instance-attributes
 class GLDPMClient:
@@ -29,14 +32,25 @@ class GLDPMClient:
         receiver_id: str,
         carrier_id: str,
         host: str,
-        sender_market_role_type=RoleType.RESOURCE_PROVIDER,
-        receiver_market_role_type=RoleType.SYSTEM_OPERATOR,
-        indent_xml=False,
+        sender_market_role_type: RoleType = RoleType.RESOURCE_PROVIDER,
+        receiver_market_role_type: RoleType = RoleType.SYSTEM_OPERATOR,
+        indent_xml: bool = False,
+        store_xml: bool = False,
+        storage_provider: StorageProvider | None = None,
         **request_options
     ):
         """
         Create a GLDPM Client, used to communicate from one sender
         to one receiver, indicating the carrier of the message.
+
+        :param str sender_id: The id of the sending party
+        :param str receiver_id: The id of the receiving party
+        :param str carrier_id: The id of the carrying party
+        :param str host: The hostname of the API where to send the messages to
+        :param RoleType sender_market_role_type: The role type of the sending party
+        :param RoleType receiver_market_role_type: The role type of the receiving party
+        :param bool indent_xml: Whether or not to indent the XML messages
+        :param bool store_xml: Whether or not to store the XML messages. Use an XMLStorageProvider
         """
         self.host = host.removesuffix("/")
         self.sender_id = sender_id
@@ -54,10 +68,12 @@ class GLDPMClient:
         self.request_timeout = self.request_options.pop("timeout", 30)
         self.http_headers = self.request_options.pop("headers", {"Content-Type": "application/xml"})
 
+        self.storage_provider = storage_provider
+
     def send_generation_load_message(
         self,
         message_body: GlMarketDocumentBody,
-        message_addressing: MessageAddressing = None,
+        message_addressing: MessageAddressing | None = None,
     ) -> str:
         """
         Send the GlMarketDocumentBody to the receiver,
@@ -66,7 +82,7 @@ class GLDPMClient:
         Optionally provide the message_adressing to set the
         SOAP headers.
         """
-        if not message_addressing:
+        if message_addressing is None:
             message_addressing = MessageAddressing(
                 technical_message_id=str(uuid4()),
                 sender_id=self.sender_id,
@@ -89,9 +105,10 @@ class GLDPMClient:
         Post the message to the given URL. Serializes the
         request into XML and parses the response XML.
         """
+        xml_document: bytes = self._serialize_message(message)
         response = requests.post(
             url,
-            data=self._serialize_message(message),
+            data=xml_document,
             headers=self.http_headers,
             timeout=self.request_timeout,
             **self.request_options
@@ -107,12 +124,29 @@ class GLDPMClient:
                 f"Response: {decoded_response}"
             )
 
-        return self._parse_message(response.content)
+        response_document = self._parse_message(response.content)
 
-    def _serialize_message(self, message):
+        if self.storage_provider:
+            self.storage_provider.store_xml(
+                correlation_id=response_document.body.result.correlation_id,
+                direction=MessageDirection.REQUEST,
+                contents=xml_document
+            )
+            self.storage_provider.store_xml(
+                correlation_id=response_document.body.result.correlation_id,
+                direction=MessageDirection.RESPONSE,
+                contents=response.content
+            )
+
+        return response_document
+
+
+    def _serialize_message(self, message) -> bytes:
         return self.serializer.render(message).encode("utf-8")
 
     def _parse_message(self, xml_bytes, message_type=GlMarketDocumentResponse):
+        print("GlMarketDocumentResponse raw message:")
+        print(xml_bytes)
         try:
             return self.parser.from_bytes(xml_bytes, message_type)
         except ParserError as err:

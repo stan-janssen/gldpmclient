@@ -11,7 +11,7 @@ dependencies = [
     "xsdata",
     "tzdata; os_name == 'nt'"
 ]
-requires-python = ">= 3.10"
+requires-python = ">= 3.11"
 license = {file = "LICENSE"}
 
 [tool.setuptools]
@@ -50,3 +50,9 @@ disable = "missing-class-docstring, missing-module-docstring, too-few-public-met
 
 [tool.isort]
 profile = "black"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+]

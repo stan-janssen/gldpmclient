@@ -113,6 +113,30 @@ except exceptions.GLDPMException as err:
 
 The response from the receiver will only be the correlation_id (str) for the message. You can use this ID to correlate future messages.
 
+Storing the raw XML documents
+-----------------------------
+
+If you want to, you can store both the request and response message as an XML file. You can either use the provided FileStorageProvider class, or implement your own subclass of StorageProvider that implements the store_xml method.
+
+The FileStorageProvider takes an argument that specifices the directory where the file should be stored, and stores the files under {correllation_id}\_request.xml and {correlation_id}\_response.xml.
+
+If you want to implement your own handler, for example to store the file in a cloud storage, implement the store_xml method on a subclass if StorageProvider that takes the following arguments:
+
+- correlation_id: ``str``
+- direction: ``gldpmclient.storage.MessageDirection``
+- contents: ``bytes``
+
+By default, this method is called synchronously and is not protected against errors. If you need protection, implement your own exception handling or run it on a separate thread as you see fit.
+
+```
+from gldpmclient import GLDPMClient, FileStorageProvider
+
+client = GLDPMClient(
+    ...
+    storage_provider=FileStorageProvider(directory="/some/directory")
+)
+
+```
 
 Enumerations
 ------------
