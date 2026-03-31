@@ -56,3 +56,13 @@ dev = [
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
 ]
+
+[tool.ruff.lint]
+select = [
+    "I",
+    "W191",
+    "W291",
+    "W292",
+    "W293",
+    "F401",
+]

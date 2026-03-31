@@ -3,10 +3,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List
 
+from ..elements import EsmpDateTimeInterval, TimeSeries
 from ..enums import MessageType, ProcessType, RoleType
 from ..metadata import PartyIdString
-from ..elements import EsmpDateTimeInterval, TimeSeries
-
 
 
 @dataclass(kw_only=True)

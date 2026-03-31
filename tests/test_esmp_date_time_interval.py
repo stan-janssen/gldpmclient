@@ -1,12 +1,12 @@
-from gldpmclient.objects import EsmpDateTimeInterval
-from datetime import datetime, timezone
+from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from xsdata.formats.dataclass.serializers import XmlSerializer
-from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
+from xsdata.formats.dataclass.serializers import XmlSerializer
+from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
+from gldpmclient.objects import EsmpDateTimeInterval
 
 local_timezone = ZoneInfo("Europe/Amsterdam")
 

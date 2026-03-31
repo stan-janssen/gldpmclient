@@ -4,11 +4,12 @@ from unittest.mock import patch
 from uuid import uuid4
 
 import pytest
-from gldpmclient import FileStorageProvider, GLDPMClient, messages, objects
-from gldpmclient.metadata import MessageAddressing
 from requests import Response
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
+
+from gldpmclient import FileStorageProvider, GLDPMClient, messages, objects
+from gldpmclient.metadata import MessageAddressing
 
 from .test_generation_load_message import body
 

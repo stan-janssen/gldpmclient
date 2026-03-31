@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
-from .gl_market_document_body import GlMarketDocumentBody
 from ..metadata import MessageAddressing
+from .gl_market_document_body import GlMarketDocumentBody
 
 
 @dataclass(kw_only=True)

@@ -2,10 +2,16 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+from ..enums import (
+    BusinessType,
+    CurveType,
+    IndicatorType,
+    ObjectAggregationType,
+    UnitOfMeasureType,
+)
+from ..metadata import AreaIdString, ResourceIdString
 from .mkt_psr_type import MktPsrType
 from .series_period import SeriesPeriod
-from ..enums import BusinessType, CurveType, IndicatorType, ObjectAggregationType, UnitOfMeasureType
-from ..metadata import AreaIdString, ResourceIdString
 
 
 @dataclass(kw_only=True)

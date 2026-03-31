@@ -3,6 +3,7 @@ from typing import Optional
 
 from ..metadata import Version
 
+
 @dataclass(kw_only=True)
 class IsAliveResponseMessage:
     class Meta:

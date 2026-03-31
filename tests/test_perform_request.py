@@ -1,11 +1,11 @@
 from unittest.mock import patch
 
+from requests import Response
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from requests import Response
-
 from gldpmclient import GLDPMClient, objects
+
 from .test_generation_load_message import body
 
 

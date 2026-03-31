@@ -6,7 +6,8 @@ from requests import Response
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from gldpmclient import GLDPMClient, objects, exceptions
+from gldpmclient import GLDPMClient, exceptions, objects
+
 from .test_generation_load_message import message
 
 serializer = XmlSerializer(config=SerializerConfig(xml_declaration=False))

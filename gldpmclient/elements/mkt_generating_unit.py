@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Optional
 
-from .esmp_active_power import EsmpActivePower
 from ..metadata import ResourceIdString
+from .esmp_active_power import EsmpActivePower
 
 
 @dataclass(kw_only=True)

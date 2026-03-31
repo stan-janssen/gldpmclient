@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+from ..enums import AssetType
 from .esmp_voltage import EsmpVoltage
 from .mkt_generating_unit import MktGeneratingUnit
-from ..enums import AssetType
 
 
 @dataclass(kw_only=True)
